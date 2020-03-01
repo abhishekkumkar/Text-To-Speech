@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+		<div class="row" style="margin-top: 20px;">
+			
+			<form method="post" action="/translate-text" class="jumbotron">
+				{% csrf_token %}
+				<div class="form-group ">
+					<label for="conversion_text">Converted Language</label>
+					<select class="form-control" name="conversion_lang" id="conversion_lang" required="required">
+						{% for key, value in language_list %}
+							<option {% if selected_lang == key %} selected="selected" {% endif %} value="{{key}}">{{value}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="conversion_text">Input Text</label>
+					<textarea class="form-control" id="conversion_text" name="conversion_text" required="required" rows="5">{{conversion_text}}</textarea>
+				</div>
+				<div class="btn-group btn-group-justified"  >
+					<div class="btn-group" >
+					  <button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+					<div class="btn-group" >
+					  <a href="/upload-file"><button type="button" onclick="window.location='/translate'" class="btn btn-danger">Upload a File instead</button></a>
+					</div>
+				  </div>
+			</form>
+		</div>
+
+{% endblock %}

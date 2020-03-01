@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+	{% load qr_code %}
+		<div class="row-6" style="margin-top: 20px;">			
+			<div class="text-right">
+				<a href="/" class="btn btn-sm btn-primary">Back</a>
+			</div>
+			{% if conversion_status %}
+				<div class="alert alert-success" style="margin-top: 5px">
+					<p>Speech translation is successfull.</p>
+				</div>
+			{% endif %}
+			<div class="form-group">
+				<label for="conversion_text">Converted Language : </label>
+				<span>{{selected_lang}}</span>
+			</div>
+			<div class="form-group">
+				<label for="conversion_text">Saved Path : </label>
+				{% if conversion_status %}
+					<span><a href="{{saved_path}}" target="_blank">{{saved_path}}</a></span>
+					{% qr_from_text saved_path size="s" image_format="png" error_correction="L" %}
+				{% endif %}
+			</div>
+			<div class="form-group">
+				<label for="conversion_text">Input Text : </label>
+				<span>{{conversion_text}}</span>
+			</div>
+		</div>
+
+{% endblock %}
